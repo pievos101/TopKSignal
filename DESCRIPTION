@@ -4,7 +4,7 @@ Title: A Convex Optmisation Tool for Signal Reconstruction from Multiple Ranked 
 Version: 1.1
 Date: 2019-02-8
 Author: Luca Vitale, Bastian Pfeifer, Michael G. Schimek 
-Maintainer: Luca Vitale <lvitale@unisa.it>
+Maintainer: Bastian Pfeifer <bastian.pfeifer@medunigraz.at>
 Depends: R (>= 3.5.0)
 Imports: foreach, doParallel, parallel, nloptr, Matrix, ggplot2, reshape2
 Suggests: knitr, rmarkdown, gurobi
