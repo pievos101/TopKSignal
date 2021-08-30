@@ -1,0 +1,17 @@
+import(reshape2)
+import(Matrix)
+import(doParallel)
+import(foreach)
+import(ggplot2)
+import(nloptr)
+import(parallel)
+
+importFrom("stats", "cor", "median", "rnorm")
+importFrom("stats", "dpois", "qpois", "runif")
+importFrom("stats", "rpois")
+
+export(estimateTheta)
+export(generate.rank.matrix)
+export(violinPlot)
+export(heatmapPlot)
+export(elbowPlot)

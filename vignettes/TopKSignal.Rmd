@@ -1,0 +1,151 @@
+---
+title: "TopKSignal"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{TopKSignal}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+#install.packages("TopKSignal")
+library(TopKSignal)
+```
+
+# Introduction
+The ranking of items is widely used to rate their relative quality or relevance across multiple assessments (by humans or machines). Beyond classical rank aggregation, it is of special interest to estimate the, usually unobservable, latent signals that inform a consensus ranking. Under the only assumption of independent assessments, we have developed (as yet unpublished work) and implemented an indirect inference approach via linear or quadratic convex optimization. The final estimates of the signals and their standard errors can be obtained from classical Bootstrap or from computationally more efficient Poisson Bootstrap.
+
+# The optimization tool _gurobi_
+_Gurobi_ is a powerful tool for solving optimization problems. It can be used in combination with _TopKSignal_ in order to efficiently estimate the underlying consensus signals of multiple ranked lists. Instructions about the installation of _gurobi_ on your computer system can be found at the [official _gurobi_ webpage](http://www.gurobi.com/documentation/). There is a special license for academic purposes at no cost. As an alternative to _gurobi_ you can use the _nloptr_ package, an R package freely available on CRAN.
+
+# Input format 
+We provide in-build functions to simulate multiple ranked lists based on gaussian distributions. The _generate.rank.matrix()_ function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. 
+
+```{r}
+#install.packages("TopKSignal")
+library("TopKSignal")
+set.seed(1421)
+p = 8
+n = 10
+input <- generate.rank.matrix(p, n)
+rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
+```
+
+The input data should be a numerical matrix as shown below. Row names and column names are required. 
+
+```{r}
+input$R.input
+```
+
+Each row represents the rank of an object assigned by a specific assessor (the columns). It should be noted, that _TopKSignal_ currently does not support tied or missing ranks. 
+
+The input rank matrix is obtained from the model 
+
+$$ X_{i,j} = \theta_i + Z_{i,j}, \\ \\ \\ i = 1,...,p, j=1,..n,$$
+
+where each signal parameter $\theta$ represents a "true value" in the sense of a latent variable. Each of the rankings is determined by a "true value" plus an assessor-specific random error $Z$.
+
+The underlying signal is simulated as $\theta \sim \mathcal{N}(0,1)$. 
+
+Then the true values of the objects are:
+```{r}
+input$theta.true
+```
+Accordingly, the consensus ranks of the objects are:
+ 
+```{r}
+rank(-input$theta.true)
+```
+
+It is assumed that each value assigned by an assessor has a different noise due to uncertainty about the true value. This noise is simulated with an assessor-specific standard deviation $\sigma$, where $\sigma \sim \mid \mathcal{U}(0.4,0.6)\mid$. 
+
+```{r}
+input$sigmas
+```
+
+Hence, the random errors of each assessor are equal to $Z_{j} \sim \mathcal{N}(0,\sigma_j)$. 
+
+Also, the noise added by each assessor to the "true value"" is available:
+
+```{r}
+input$matrixNoise
+```
+
+By ranking $X_{i,j} = \theta_i + Z_{i,j}$ column-wise we obtain the final rank matrix. The rank matrix is built by ranking the columns of the theta values plus the matrix noise.
+
+## The convex optimization problem
+In this section, we briefly explain how the convex optimization problem is formulated. First, we define the $\pi(i,j)$ function that returns the index of the item in position $i$ for the assessor $j$. 
+
+### The full model
+The full model consists of a set of independent constraints comprising all individual assessments. To reinforce the rank positions assigned by the assessors, a penalization parameter $b$ is added to the constraints.
+
+Given the assessor $j$ and starting from the object ranked first, we force this object with the latent parameter $\theta_{\pi(1,j)}$ plus noise $z_{(\pi(1,j),j)}$ to be greater or equal to the object in the second position with $\theta_{\pi(2,j)}$ plus $z_{(\pi(2,j),j)}$ plus a penalization parameter $b$. Thus, the first constraint for the assessor $j$ is $\theta_{\pi(1,j)} + z_{(\pi(1,j),j)} - \theta_{\pi(2,j)} - z_{(\pi(2,j),j)} \geq b$ (in standard form). In the second constraint we force $\theta_{\pi(1,j)}$ plus $z_{(\pi(1,j),j)}$ to be greater or equal to the third object represented by $\theta_{\pi(3,j)}$ plus $z_{(\pi(3,j),j)}$ plus $b$. This calculation is done for all objects accordingly. By doing so, it is possible to infer the underlying latent signal for each assessor via convex optimization. The number of constraints is equal to $n \times [(p-1) * p]/2$ and the number of variables is equal to $n * p + p$. Because the number of constraints is growing in quadratic time, we also introduce a reduced method that achieves a substancially higher computational efficiency.
+
+
+### The minimization term
+Once we have built the model constraints, two different objective functions are available: The first one concernes the minimization of the sum of the noise variables $z_{i,j}$. The second one involves the minimization of the squared sum of the noise variables $z_{i,j}$. We have to solve a convex linear optimization problem in the first case, and a convex quadratic optimization problem in the second case. 
+
+## Estimating the latent signals from multiple ranked lists
+The main function that estimates the underlying signal is _estimateTheta()_. Parameters required are: (i) A rank matrix as described in the previous section; (ii) the number of Bootstrap samples (we recommend 200); and (iii) a value for the penalization parameter $b>0$, usually set to 0.1. Our implementation is compatible with two different solvers, _gurobi_ and _nloptr_. Furthermore, four different mathematical approaches are implemented, _restricedQuadratic_, _restrictedLinear_, _fullQuadratic_ and _fullLinear_, which can be choosen by the _type_ parameter. Also, two different statistical Bootstrap techniques are available, the _classic.bootstrap_ and the _poisson.bootstrap_. The number of cores used for the Bootstrap procedures can be set by the _nCore_ parameter. 
+
+
+```{r}
+estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)
+```
+
+The Bootstrap estimated signals and their standard errors can be obtained from:
+```{r}
+estimatedSignal$estimation
+```
+
+The estimated consensus rank is:
+
+```{r}
+rank(-estimatedSignal$estimation$signal.estimate)
+```
+
+For each object (_id_) the estimated signal (theta value) and its standard error are shown. 
+The higher the estimated theta value, the lower is the associated rank position, i.e. towards the top range of the consensus rank list.
+
+The Bootstrap also allows us to estimate the noise in the matrix of constraints which was minimized by means of convex optimization.
+
+```{r}
+estimatedSignal$estimatedMatrixNoise
+```
+
+The results of each Bootstrap iteration are also available. Each column represents an object and each row the Bootstrap sample estimates.
+
+```{r}
+estimatedSignal$allBootstraps
+```
+
+Also the execution time is provided.
+```{r}
+estimatedSignal$time
+```
+
+## Plots
+Three different summary plots are available to visualize the results.
+
+Firstly, there is a violin plot displaying the distribution of the theta estimates for each object obtained from different runs.
+
+```{r, fig.height=4,fig.width=6}
+vp <- violinPlot(estimation = estimatedSignal,trueSignal = input$theta.true,title = "Violin plot")
+vp
+```
+
+
+Secondly, there is a heatmap to check for specific patterns in the noise matrix. This information is useful when we wish to evaluate the stability of object positions in the individual assessments represented by the observed (input) ranked list.
+
+```{r, fig.height=6,fig.width=6}
+hp <- heatmapPlot(estimation = estimatedSignal, type = "reduced",title = "Heatmap plot reduced method")
+hp$plot
+```
+

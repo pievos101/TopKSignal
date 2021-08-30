@@ -1,0 +1,18 @@
+Package: TopKSignal
+Type: Package
+Title: A Convex Optmisation Tool for Signal Reconstruction from Multiple Ranked Lists
+Version: 1.1
+Date: 2019-02-8
+Author: Luca Vitale, Bastian Pfeifer, Michael G. Schimek 
+Maintainer: Luca Vitale <lvitale@unisa.it>
+Depends: R (>= 3.5.0)
+Imports: foreach, doParallel, parallel, nloptr, Matrix, ggplot2, reshape2
+Suggests: knitr, rmarkdown, gurobi
+Description: Estimation of the Latent Signals for Consensus Across Multiple Ranked Lists using Linear and Quadratic Convex Optimisation. To solve mid/large-scale problems, users should install the 'gurobi' optimiser (available from <http://www.gurobi.com/>).
+License: GPL-2
+LazyLoad: yes
+RoxygenNote: 7.1.1
+Encoding: UTF-8
+VignetteBuilder: knitr
+NeedsCompilation: no
+Packaged: 2020-03-25 15:17:25 UTC; luca
