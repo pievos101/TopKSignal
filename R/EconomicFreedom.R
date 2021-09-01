@@ -22,4 +22,5 @@
 #'   \item{Regulation}{}   
 #' }
 #' @source \url{https://www.fraserinstitute.org/economic-freedom/}
-"EconomicFreedom"
+#' @name EconomicFreedom 
+NULL

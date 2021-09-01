@@ -4,16 +4,14 @@
 \name{TopKSignal}
 \alias{TopKSignal}
 \title{TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists.}
-\section{Introduction}{
-
+\description{
 A convex optimisation tool to estimate the underlying signal (latent variable) of the global rank order using quadratic or linear convex optimisation problems. 
 The goal of consensus across the assessors is achieved by an indirect inference using a sets of order constraints.
-TopKSignal comprises five diﬀerent functions. They permit to construct artificial ranked lists, to build sets of constraints from a rank matrix, to perform bootstrap estimation (standard and Poisson bootstrap), to run convex optimisation (with linear and quadratic objective functions), and to obtain numerical and graphical output.
+TopKSignal comprises five different functions. They permit to construct artificial ranked lists, to build sets of constraints from a rank matrix, to perform bootstrap estimation (standard and Poisson bootstrap), to run convex optimisation (with linear and quadratic objective functions), and to obtain numerical and graphical output.
 Two different methods are available: the restricted and the full method with two different penalization methods: quadratic and linear.
 Two different boostrap sample schemes are implemented: the classic bootstrap and the Poisson bootstrap. 
 The package it is composed by 5 different functions, that permits to simulate, estimate and analyse multiple ranked lists using convex optimisation.
 }
-
 \section{estimateTheta function}{
 
 The main function for the estimation of the underlying signals is called estimateTheta(). The parameters required are: (1) A rank matrix as described previously, (2) the number of bootstrap samples (it is recommend 500), and (3) a constant for the support variables \(b>0\), recommended is 0.1, (4)  the type of model with four different options fullLinear, fullQuadratic, restrictedLinear and restrictedQuadratic, (5) the type of  bootstrap sampling scheme with two options poisson.bootstrap and classic.bootstrap, and (6) the number of cores that the function can use. Each bootstrap sample is executed on a dedicated CPU core.

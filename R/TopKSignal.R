@@ -1,9 +1,8 @@
 #' TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists.
 #' 
-#' @section Introduction:
 #' A convex optimisation tool to estimate the underlying signal (latent variable) of the global rank order using quadratic or linear convex optimisation problems. 
 #' The goal of consensus across the assessors is achieved by an indirect inference using a sets of order constraints.
-#' TopKSignal comprises five diﬀerent functions. They permit to construct artificial ranked lists, to build sets of constraints from a rank matrix, to perform bootstrap estimation (standard and Poisson bootstrap), to run convex optimisation (with linear and quadratic objective functions), and to obtain numerical and graphical output.
+#' TopKSignal comprises five different functions. They permit to construct artificial ranked lists, to build sets of constraints from a rank matrix, to perform bootstrap estimation (standard and Poisson bootstrap), to run convex optimisation (with linear and quadratic objective functions), and to obtain numerical and graphical output.
 #' Two different methods are available: the restricted and the full method with two different penalization methods: quadratic and linear.
 #' Two different boostrap sample schemes are implemented: the classic bootstrap and the Poisson bootstrap. 
 #' The package it is composed by 5 different functions, that permits to simulate, estimate and analyse multiple ranked lists using convex optimisation.
