@@ -5,7 +5,9 @@ Please see */vignettes/TopKSignal.html* for a detailed description of the packag
 The TopKSignal R-package can be installed using devtools.
 
 install.packages("devtools")
+
 library(devtools)
 
 install_github("pievos101/TopKSignal")
+
 library(TopKSignal)
