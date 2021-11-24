@@ -1,14 +1,14 @@
 #' generate.rank.matrix
 #'
-#' The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. In the example shown, the number of objects is equal to 10 and the number of assessors is equal to 20. The function simulates full ranked lists (i.e. no missing assignments) without ties.
-#' @param p the number of objects.
-#' @param n the number of assessors.
-#' @param percentageMissing the percentage of the missing values.
+#' The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. The function simulates full ranked lists (i.e. no missing assignments) without ties.
+#' @param p The number of objects.
+#' @param n The number of assessors.
+#' @param percentageMissing The percentage of the missing values. Note, the current version of TopKSignal does not support missing data.
 #' @return A list with simulated data
 #' \itemize{
-#'   \item R.input - The rank matrix simulated
+#'   \item R.input - The rank matrix 
 #'   \item thea.true - The true underlying signals from the assessments
-#'   \item sigmas - the standard error of the noise added for each assessor
+#'   \item sigmas - The standard error of the noise added for each assessor
 #'   \item matrixNoise - The noise added to the true signals in order to get the final rank matrix
 #' }
 #' @keywords generate.rank.matrix

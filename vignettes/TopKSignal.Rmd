@@ -1,5 +1,5 @@
 ---
-title: "TopKSignal"
+title: "TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{TopKSignal}
@@ -14,8 +14,12 @@ knitr::opts_chunk$set(
 )
 ```
 
+# Package installation
+The R-package TopKSignal is freely available from GitHub. It can be installed using devtools.
 ```{r setup}
-#install.packages("TopKSignal")
+#install.packages("devtools")
+#library(devtools)
+#install_github("pievos101/TopKSignal")
 library(TopKSignal)
 ```
 
@@ -132,20 +136,11 @@ estimatedSignal$time
 ```
 
 ## Plots
-Three different summary plots are available to visualize the results.
-
-Firstly, there is a violin plot displaying the distribution of the theta estimates for each object obtained from different runs.
+A violin plot is available to display the distribution of the theta estimates for each object obtained from different runs.
 
 ```{r, fig.height=4,fig.width=6}
 vp <- violinPlot(estimation = estimatedSignal,trueSignal = input$theta.true,title = "Violin plot")
 vp
 ```
 
-
-Secondly, there is a heatmap to check for specific patterns in the noise matrix. This information is useful when we wish to evaluate the stability of object positions in the individual assessments represented by the observed (input) ranked list.
-
-```{r, fig.height=6,fig.width=6}
-hp <- heatmapPlot(estimation = estimatedSignal, type = "reduced",title = "Heatmap plot reduced method")
-hp$plot
-```
 

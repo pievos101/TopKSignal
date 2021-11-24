@@ -9,9 +9,9 @@ heatmapPlot(estimation, type = "full", title = "")
 \arguments{
 \item{estimation}{The bootstrap estimation obtained from the estimateTheta function}
 
-\item{type}{the type of method used: Two options are available, 'full' or 'reduced'}
+\item{type}{The type of method used: Two options are available, 'full' or 'reduced'}
 
-\item{title}{the title of the plot}
+\item{title}{The title of the plot}
 }
 \value{
 A list with:

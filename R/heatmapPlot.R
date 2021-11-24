@@ -1,9 +1,9 @@
 #' Heatmap noise matrix plot
 #'
-#' The heatmap plot allows us to check whether specific patterns are present in the data. The heatmapPlot contains the information about the involved noises in the estimation process. The rows of the noise matrix are ordered by the estimated rank of the signal value. The columns are ordered by the column sum. The column with the lowest sum is positioned on the left side and the column with the highest sum is positioned on the right side. Hence, the assessors positioned on the left should be more reliable than those on the right. When some assessors of low ranking ability are suspected the heatmap is very helpful. This plot is also useful when an informative set of top-ranked objects is likely or in general when patterns inside the data might be present. The heatmapPlot function requires the estimation results obtained from the estimateTheta function.  
+#' The heatmap plot allows us to check whether specific patterns are present in the data. The heatmapPlot contains the information about the involved noises in the estimation process. The rows of the noise matrix are ordered by the estimated rank of the signal value. The columns are ordered by the column sum. The column with the lowest sum is positioned on the left side and the column with the highest sum is positioned on the right side. Hence, the assessors positioned on the left should be more reliable than those on the right. When some assessors of low ranking ability are suspected the heatmap is very helpful. This plot is also useful when an informative set of top-ranked objects is likely or in general when patterns inside the data might be present. The heatmapPlot function requires the estimation results obtained from the estimateTheta function. 
 #' @param estimation The bootstrap estimation obtained from the estimateTheta function
-#' @param type the type of method used: Two options are available, 'full' or 'reduced'
-#' @param title the title of the plot  
+#' @param type The type of method used: Two options are available, 'full' or 'reduced'
+#' @param title The title of the plot  
 #' @keywords heatmapPlot
 #' @return A list with:
 #' \itemize{

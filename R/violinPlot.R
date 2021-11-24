@@ -1,9 +1,9 @@
 #' violinPlot
 #'
-#' The violint plot display the bootstrap distribution of the estimated signals along with the mean estimates. The deviations from the mean values are equal to 2+-SE and are displayed in the violin plot.  With the analysis of the distribution and the standard error of the signal of each object, it is possible to verify its rank stability compared to all other objects. The violinPlot function requires (1) the result obtained by the estimation procedure and (2) the 'true' (simulated) signals or ground truth (when available).
+#' The violint plot displays the bootstrap distribution of the estimated signals along with the mean estimates. The deviations from the mean values are equal to 2+-SE and are displayed in the violin plot.  With the analysis of the distribution and the standard error of the signal of each object, it is possible to verify its rank stability compared to all other objects. The violinPlot function requires (1) the result obtained by the estimation procedure (see estimateTheta()) and (2) the 'true' (simulated) signals or ground truth (when available).
 #' @param estimation The estimation list from the 'estimateTheta' function
-#' @param trueSignal the true signal (if available)
-#' @param title the title of the plot  
+#' @param trueSignal The true signal (if available)
+#' @param title The title of the plot  
 #' @keywords violintPlot
 #' @return A violint plot with the estimated distribution of each object 
 #' @export

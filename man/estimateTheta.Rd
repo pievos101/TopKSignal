@@ -18,23 +18,23 @@ estimateTheta(
 \item{R.input}{A matrix where the number of rows is equal to the number of the objects and
 the number of columns equals the number of assessors (rankers).}
 
-\item{b}{the penalization term. The suggested value is 0.1.}
+\item{b}{The penalization term. The suggested value is 0.1.}
 
-\item{num.boot}{the number of boostrap samples created from the input ranked matrix. A positive number is expected.}
+\item{num.boot}{The number of boostrap samples created from the input ranked matrix. A positive number is expected.}
 
 \item{solver}{A string that indicate which solver to use. Two options are available, 'gurobi' and 'nloptr'.
 We recommend to use gurobi for faster computation. Note, a licence is required. Check the corresponding documentation on how to install gurobi.}
 
 \item{type}{A string that indicates which model to use: four approaches are available: 'restrictedQuadratic', 'fullQuadratic', 'restrictedLinear' and 'fullLinear'.}
 
-\item{bootstrap.type}{A string that indicate which bootstrap method to use: 'classic.bootstrap' or 'poisson.bootstrap'.}
+\item{bootstrap.type}{string that indicate which bootstrap method to use: 'classic.bootstrap' or 'poisson.bootstrap'.}
 
 \item{nCore}{The number of cores used for computation. Each core is used to calculate the signals from a bootstrap sample. Default number is detectCores() - 1.}
 }
 \value{
 A list with the estimation information obtained:
  \itemize{
-  \item estimation - A data frame with the signal estimation and the standard error evaluating by the bootstrap for each object
+  \item estimation - A data frame with the signal estimation and the standard error computed by the bootstrap for each object
   \item estimatedMatrixNoise - The estimated matrix noise 
   \item time - The execution time of the procedure
   \item allBootstraps - The single bootstrap estimations of all objects for each bootstrap sample

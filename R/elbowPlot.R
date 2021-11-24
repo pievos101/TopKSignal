@@ -1,8 +1,8 @@
 #' elbowPlot
 #'
-#' the Elbow plot permits to identify a subset of top-$k$ objects in combination with the heatmapPlot function. Objects are ordered according to their rank position given on the x-axis. On the y-axis we have the corresponding estimated signal value of each object. The idea of the elbow plot is to scan for 'jumps' - neighbouring signal estimates which are visually much distant - in an exploratory manner. The elbowPlot function requires the estimation results from the estimateTheta function.  
-#' @param estimation TODO
-#' @param title the title of the plot  
+#' The Elbow plot permits to identify a subset of top-$k$ objects. Objects are ordered according to their rank position shown on the x-axis. On the y-axis we have the corresponding estimated signal value of each object. The idea of the elbow plot is to scan for 'jumps' - neighbouring signal estimates which are visually much distant - in an exploratory manner. The elbowPlot function requires the estimation results from the estimateTheta function.
+#' @param estimation Results from the estimateTheta() function
+#' @param title A title for the plot  
 #' @keywords elbowtPlot
 #' @return A elbow plot 
 #' @export

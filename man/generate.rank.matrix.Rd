@@ -18,7 +18,7 @@ A list with simulated data
 \itemize{
   \item R.input - The rank matrix 
   \item thea.true - The true underlying signals from the assessments
-  \item sigmas - the standard error of the noise added for each assessor
+  \item sigmas - The standard error of the noise added for each assessor
   \item matrixNoise - The noise added to the true signals in order to get the final rank matrix
 }
 }
