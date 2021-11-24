@@ -41,6 +41,6 @@ A list with the estimation information obtained:
 }
 }
 \description{
-The main function for the estimation of the underlying signals is called estimateTheta(). The parameters required are: (1) A rank matrix as described previously, (2) the number of bootstrap samples (it is recommend 500), and (3) a constant for the support variables \(b>0\), recommended is 0.1, (4)  the type of model with four different options fullLinear, fullQuadratic, restrictedLinear and restrictedQuadratic, (5) the type of  bootstrap sampling scheme with two options poisson.bootstrap and classic.bootstrap, and (6) the number of cores that the function can use. Each bootstrap sample is executed on a dedicated CPU core.
+The main function for the estimation of the underlying signals is called estimateTheta(). The parameters required are: (1) A rank matrix, (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of  bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
 }
 \keyword{estimateTheta}
