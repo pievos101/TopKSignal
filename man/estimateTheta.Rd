@@ -23,11 +23,11 @@ the number of columns equals the number of assessors (rankers).}
 \item{num.boot}{the number of boostrap samples created from the input ranked matrix. A positive number is expected.}
 
 \item{solver}{A string that indicate which solver to use. Two options are available, 'gurobi' and 'nloptr'.
-We recommend to use gurobi because it is faster. Note, a licence is required. Check the corresponding documentation on how to install gurobi.}
+We recommend to use gurobi for faster computation. Note, a licence is required. Check the corresponding documentation on how to install gurobi.}
 
-\item{type}{A string that indicate which model to use: four possibilites are available: 'restrictedQuadratic', 'fullQuadratic', 'restrictedLinear' and 'fullLinear'}
+\item{type}{A string that indicates which model to use: four approaches are available: 'restrictedQuadratic', 'fullQuadratic', 'restrictedLinear' and 'fullLinear'.}
 
-\item{bootstrap.type}{A string that indicate which bootstrap method to use: two possibilites are available: 'classic.bootstrap' or 'poisson.bootstrap'.}
+\item{bootstrap.type}{A string that indicate which bootstrap method to use: 'classic.bootstrap' or 'poisson.bootstrap'.}
 
 \item{nCore}{the number of cores used for computation. Each core is used to solve a bootstrap sample. Default number is detectCores() - 1.}
 }
