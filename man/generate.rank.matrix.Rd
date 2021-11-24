@@ -7,22 +7,22 @@
 generate.rank.matrix(p, n, percentageMissing = 0)
 }
 \arguments{
-\item{p}{the number of objects.}
+\item{p}{The number of objects.}
 
-\item{n}{the number of assessors.}
+\item{n}{The number of assessors.}
 
-\item{percentageMissing}{the percentage of the missing values.}
+\item{percentageMissing}{The percentage of the missing values. Note, the current version of TopKSignal does not support missing data.}
 }
 \value{
 A list with simulated data
 \itemize{
-  \item R.input - The rank matrix simulated
+  \item R.input - The rank matrix 
   \item thea.true - The true underlying signals from the assessments
   \item sigmas - the standard error of the noise added for each assessor
   \item matrixNoise - The noise added to the true signals in order to get the final rank matrix
 }
 }
 \description{
-The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. In the example shown, the number of objects is equal to 10 and the number of assessors is equal to 20. The function simulates full ranked lists (i.e. no missing assignments) without ties.
+The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. The function simulates full ranked lists (i.e. no missing assignments) without ties.
 }
 \keyword{generate.rank.matrix}
