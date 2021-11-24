@@ -29,18 +29,18 @@ We recommend to use gurobi for faster computation. Note, a licence is required. 
 
 \item{bootstrap.type}{A string that indicate which bootstrap method to use: 'classic.bootstrap' or 'poisson.bootstrap'.}
 
-\item{nCore}{the number of cores used for computation. Each core is used to solve a bootstrap sample. Default number is detectCores() - 1.}
+\item{nCore}{The number of cores used for computation. Each core is used to calculate the signals from a bootstrap sample. Default number is detectCores() - 1.}
 }
 \value{
 A list with the estimation information obtained:
  \itemize{
   \item estimation - A data frame with the signal estimation and the standard error evaluating by the bootstrap for each object
   \item estimatedMatrixNoise - The estimated matrix noise 
-  \item time - the execution time of the procedure
+  \item time - The execution time of the procedure
   \item allBootstraps - The single bootstrap estimations of all objects for each bootstrap sample
 }
 }
 \description{
-This is the main function for the estimation of the underlying latent signals. The parameters required are: (1) A rank matrix (objects as rows, assessors as columns), (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of  bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
+This is the main function for the estimation of the underlying latent signals. The parameters required are: (1) A rank matrix (objects as rows, assessors as columns), (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
 }
 \keyword{estimateTheta}
