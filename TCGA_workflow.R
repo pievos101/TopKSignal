@@ -80,16 +80,13 @@ print(dim(DATA_full_SURV))
 
 cat("Subsample patients ...\n")
 
-DEATH_patients <- as.character(DEATH_patients[[1]])
-SURV_patients  <- as.character(SURV_patients[[1]])
-
 # Subsample patients ---------------------------- # 
 ids              <- sample(1:dim(DATA_full_DEATH)[2], n.patients, replace=FALSE)
-DATA_full_DEATH  <- DATA_full_DEATH[,DEATH_patients]
+DATA_full_DEATH  <- DATA_full_DEATH[,ids]
 
 
 ids              <- sample(1:dim(DATA_full_SURV)[2], n.patients, replace=FALSE)
-DATA_full_SURV   <- DATA_full_SURV[,SURV_patients]
+DATA_full_SURV   <- DATA_full_SURV[,ids]
 # ------------------------------------------ #
 
 save(DATA_full_DEATH, file="DATA_full_DEATH.RData")
