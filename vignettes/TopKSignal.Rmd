@@ -87,11 +87,13 @@ By ranking $X_{i,j} = \theta_i + Z_{i,j}$ column-wise we obtain the final rank m
 ## The convex optimization problem
 In this section, we briefly explain how the convex optimization problem is formulated. First, we define the $\pi(i,j)$ function that returns the index of the item in position $i$ for the assessor $j$. 
 
-### The full model
-The full model consists of a set of independent constraints comprising all individual assessments. To reinforce the rank positions assigned by the assessors, a scaling parameter $b$ is added to the constraints.
+### The full approach
+The full approach considers the full set of constraints comprising all order relations produced by the rankers.
 
 Given the assessor $j$ and starting from the object ranked first, we force this object with the latent parameter $\theta_{\pi(1,j)}$ plus noise $z_{(\pi(1,j),j)}$ to be greater or equal to the object in the second position with $\theta_{\pi(2,j)}$ plus $z_{(\pi(2,j),j)}$ plus a scaling parameter $b$. Thus, the first constraint for the assessor $j$ is $\theta_{\pi(1,j)} + z_{(\pi(1,j),j)} - \theta_{\pi(2,j)} - z_{(\pi(2,j),j)} \geq b$ (in standard form). In the second constraint we force $\theta_{\pi(1,j)}$ plus $z_{(\pi(1,j),j)}$ to be greater or equal to the third object represented by $\theta_{\pi(3,j)}$ plus $z_{(\pi(3,j),j)}$ plus $b$. This calculation is done for all objects accordingly. By doing so, it is possible to infer the underlying latent signal for each assessor via convex optimization. The number of constraints is equal to $n \times [(p-1) * p]/2$ and the number of variables is equal to $n * p + p$. Because the number of constraints is growing in quadratic time, we also introduce a reduced method that achieves a substancially higher computational efficiency.
 
+### The restricted approach
+The restricted approach considers the minimum set of constraints derived from the full set of constraints, when the transitivity property of rank scales is applied. It increases the computational efficiency.
 
 ### The minimization term
 Once we have built the model constraints, two different objective functions are available: The first one concernes the minimization of the sums of the (weighted) noise variables $z_{i,j}$. The second one involves the minimization of the sums of the (weighted) squared noise variables $z_{i,j}$. We have to solve a convex linear optimization problem in the first case, and a convex quadratic optimization problem in the second case. 
