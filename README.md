@@ -1,5 +1,7 @@
+TopKSignal
+
 <p align="center">
-<img src="https://github.com/pievos101/TopKSignal/blob/main/logo.png" width="400">
+<img src="https://github.com/pievos101/TopKSignal/blob/main/logo.png" width="500">
 </p>
 
 # Effective signal reconstruction from multiple ranked lists via convex optimization
