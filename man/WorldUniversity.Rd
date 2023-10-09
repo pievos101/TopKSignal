@@ -24,7 +24,7 @@ A data frame with 300 rows and 15 variables:
 }
 }
 \source{
-\url{https://www.pnas.org/doi/10.1073/pnas.1617948114}
+\url{https://pubmed.ncbi.nlm.nih.gov/28137850/}
 }
 \description{
 Data of the World Universities that analyse 300 universities by 15 different indicators from Times Higher Education World University Rankings (THE), the Quacquarelli Symonds World University Rankings (QS), the Academic Ranking of World Universities (ARWU).

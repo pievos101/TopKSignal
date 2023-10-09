@@ -19,6 +19,6 @@
 #'   \item{PUB}{From ARWU} 
 #'   \item{PCP}{From ARWU}
 #' }
-#' @source \url{https://www.pnas.org/doi/10.1073/pnas.1617948114}
+#' @source \url{https://pubmed.ncbi.nlm.nih.gov/28137850/}
 #' @name WorldUniversity
 NULL
