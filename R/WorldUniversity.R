@@ -19,6 +19,6 @@
 #'   \item{PUB}{From ARWU} 
 #'   \item{PCP}{From ARWU}
 #' }
-#' @source \url{https://www.pnas.org/content/114/7/1512/tab-figures-data}
+#' @source \url{https://www.pnas.org/doi/10.1073/pnas.1617948114}
 #' @name WorldUniversity
 NULL

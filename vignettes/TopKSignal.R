@@ -33,7 +33,8 @@ input$sigmas
 input$matrixNoise
 
 ## -----------------------------------------------------------------------------
-estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)
+# estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)
+data(estimatedSignal)
 
 ## -----------------------------------------------------------------------------
 estimatedSignal$estimation
