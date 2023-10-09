@@ -8,7 +8,7 @@ Maintainer: Bastian Pfeifer <bastian.pfeifer@medunigraz.at>
 Depends: R (>= 3.5.0)
 Imports: foreach, doParallel, parallel, nloptr, Matrix, ggplot2, reshape2
 Suggests: knitr, rmarkdown, gurobi
-Description: Estimation of the Latent Signals for Consensus Across Multiple Ranked Lists using Linear and Quadratic Convex Optimisation. To solve mid/large-scale problems, users should install the 'gurobi' optimiser (available from <http://www.gurobi.com/>).
+Description: Estimation of the Latent Signals for Consensus Across Multiple Ranked Lists using Linear and Quadratic Convex Optimisation. To solve mid/large-scale problems, users should install the 'gurobi' optimiser (available from <https://www.gurobi.com/>).
 License: GPL-2
 LazyLoad: yes
 RoxygenNote: 7.1.2

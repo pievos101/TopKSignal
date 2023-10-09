@@ -25,7 +25,7 @@ A data frame with 145 rows and 16 variables. The rownames of the data frame repr
 }
 }
 \source{
-\url{https://www.fraserinstitute.org/economic-freedom/}
+#https://www.fraserinstitute.org/economic-freedom/
 }
 \description{
 Each country is analyzed and ranked with the support of different economic indicators. Each variable has an unique value from the first (1) to the last position (145).
