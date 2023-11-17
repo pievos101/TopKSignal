@@ -31,7 +31,7 @@ estimateTheta <- function(R.input, b, num.boot, solver,
                 nCore = nCore)
         }
     } else {
-        print("GUROBI is required <http://www.gurobi.com/>. Is possible to use nloptr a free optimisation tool.")
+        stop("GUROBI is required <http://www.gurobi.com/>. Is possible to use nloptr a free optimisation tool.")
     }
 
     if (solver == "nloptr") {

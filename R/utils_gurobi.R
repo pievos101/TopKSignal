@@ -128,15 +128,13 @@ buildLinearSparseAll <- function(rankMat, b, weights = NULL) {
     return(model)
 }
 
-
-
 GUROBISparsetest <- function(R.input, b, method, weights = NULL) {
     model <- buildSparseAll(R.input, b, weights)
     params <- list()
     params$Method <- method
 
     start_time <- Sys.time()
-    res <- gurobi(model, params = params)
+    res <- gurobi::gurobi(model, params = params)
     end_time <- Sys.time()
 
     runningTime <- difftime(end_time, start_time, units = "secs")
@@ -151,7 +149,7 @@ GUROBILinearSparseTest <- function(R.input, b, method,
     params$Method <- method
 
     start_time <- Sys.time()
-    res <- gurobi(model, params = params)
+    res <- gurobi::gurobi(model, params = params)
     end_time <- Sys.time()
 
     runningTime <- difftime(end_time, start_time, units = "secs")
@@ -304,7 +302,7 @@ GUROBIMediumSparsetest <- function(R.input, b, method,
     params$Method <- method
 
     start_time <- Sys.time()
-    res <- gurobi(model, params = params)
+    res <- gurobi::gurobi(model, params = params)
     end_time <- Sys.time()
 
     runningTime <- difftime(end_time, start_time, units = "secs")
@@ -320,7 +318,7 @@ GUROBILinearMediumSparsetest <- function(R.input, b,
     params$Method <- method
 
     start_time <- Sys.time()
-    res <- gurobi(model, params = params)
+    res <- gurobi::gurobi(model, params = params)
     end_time <- Sys.time()
 
     runningTime <- difftime(end_time, start_time, units = "secs")

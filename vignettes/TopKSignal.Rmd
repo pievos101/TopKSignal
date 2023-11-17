@@ -2,7 +2,7 @@
 title: "TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{TopKSignal}
+  %\VignetteIndexEntry{TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -15,6 +15,7 @@ knitr::opts_chunk$set(
 ```
 
 # Package installation
+%%%%%%%%%%%%%%%%%%%%%%%%%%   NEEDS TO BE ADAPTED FOR THE CRAN VERSION %%%%%%%%%%%%%%%%%%%%%%
 The R-package TopKSignal is freely available from GitHub. It can be installed using devtools.
 ```{r setup}
 #install.packages("devtools")
@@ -24,13 +25,14 @@ library(TopKSignal)
 ```
 
 # Introduction
-The ranking of items is widely used to rate their relative quality or relevance across multiple assessments (by humans or machines). Beyond classical rank aggregation, it is of special interest to estimate the, usually unobservable, latent signals that inform a consensus ranking. Under the only assumption of independent assessments, we have developed (as yet unpublished work) and implemented an indirect inference approach via linear or quadratic convex optimization. The final estimates of the signals and their standard errors can be obtained from classical Bootstrap or from computationally more efficient Poisson Bootstrap.
+The ranking of items is widely used to rate their relative quality or relevance across multiple assessments (by humans or machines). Beyond classical rank aggregation, it is of special interest to estimate the, usually unobservable, latent signals that inform a consensus ranking. Under the only assumption of independent assessments, which can be incomplete, the package offers indirect inference via convex optimization in combination with classical Bootstrap and computationally more efficient Poisson Bootstrap. Users can decide between a linear or a quadratic objective function. The input for the optimization problem is based complete pairwise comparisons of all items with respect to their rank positions (the so-called 'full approach'). The transitivity property of rank scales can be adopted for a substantial reduction of the computational burden (the so-called 'restricted approach'). The order relations are represented by sets of constraints. The method is adept to both $n \gg p$ and $n \ll p$ data problems. The implemented package provides results with less computational demand comparable to the machine learning rank centrality algorithm. The primary output is the signal estimates, the estimated signal standard errors, and the consolidated rank list. The latter is an alternative to a conventional list of aggregated ranks.
+
 
 # The optimization tool _gurobi_
 _Gurobi_ is a powerful tool for solving optimization problems. It can be used in combination with _TopKSignal_ in order to efficiently estimate the underlying consensus signals of multiple ranked lists. Instructions about the installation of _gurobi_ on your computer system can be found at the [official _gurobi_ webpage](https://www.gurobi.com/documentation/). There is a special license for academic purposes at no cost. As an alternative to _gurobi_ you can use the _nloptr_ package, an R package freely available on CRAN.
 
 # Input format 
-We provide in-build functions to simulate multiple ranked lists based on gaussian distributions. The _generate.rank.matrix()_ function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. 
+We provide in-build functions to simulate multiple ranked lists based on half-Gaussian distributions. The _generate.rank.matrix()_ function requires the user to specify the number of items (objects), denoted by $p$, and the number of assessors (rankers), denoted by $n$. 
 
 ```{r}
 #install.packages("TopKSignal")
@@ -42,21 +44,22 @@ input <- generate.rank.matrix(p, n)
 rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
 ```
 
-The input data should be a numerical matrix as shown below. Row names and column names are required. 
+The input data need to be a numerical matrix as shown below. Row names and column names are required. 
 
 ```{r}
 input$R.input
 ```
 
-Each row represents the rank of an object assigned by a specific assessor (the columns). It should be noted, that _TopKSignal_ currently does not support tied or missing ranks. 
+Each row represents the rank of an item assigned by a specific assessor (the columns). It should be noted, that _TopKSignal_ does not support tied ranks. Missing rank assignments are allowed.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MAKE SURE THAT THE WRIGHT FUNCTION IS USED %%%%%%%%%%%%%%%%%%%%%
 
 The input rank matrix is obtained from the model 
 
 $$ X_{i,j} = \theta_i + Z_{i,j}, \\ \\ \\ i = 1,...,p, j=1,..n,$$
 
-where each signal parameter $\theta$ represents a "true value" in the sense of a latent variable. Each of the rankings is determined by a "true value" plus an assessor-specific random error $Z$.
+where each signal parameter $\theta$ represents a 'true value' in the sense of a latent variable, sometimes referred to as 'score' in machine learning, reflecting the signal intensity. Each of the rankings is determined by a signal plus an assessor-specific random error $Z$.
 
-The underlying signal is simulated as $\theta \sim \mathcal{N}(0,1)$. 
+The underlying signal is simulated as $\theta_i \sim \mid\mathcal{N}(0,1)\mid$. 
 
 Then the true values of the objects are:
 ```{r}
@@ -68,38 +71,39 @@ Accordingly, the consensus ranks of the objects are:
 rank(-input$theta.true)
 ```
 
-It is assumed that each value assigned by an assessor has a different noise due to uncertainty about the true value. This noise is simulated with an assessor-specific standard deviation $\sigma$, where $\sigma \sim \mid \mathcal{U}(0.4,0.6)\mid$. 
+It is assumed that each value assigned by an assessor to an item has a different noise due to uncertainty about its true value. This noise is simulated with an assessor-specific standard deviation $\sigma$, where $\sigma \sim \mid \mathcal{U}(0.4,0.6)\mid$. 
 
 ```{r}
 input$sigmas
 ```
 
-Hence, the random errors of each assessor are equal to $Z_{j} \sim \mathcal{N}(0,\sigma_j)$. 
+Then the random errors $Z_{ij}$ are drawn from the half-normal distribution $\mid \mathcal{N}(0,\sigma^2)\mid$. 
 
-Also, the noise added by each assessor to the "true value"" is available:
+The global noise due to all assessor assignments is available from
 
 ```{r}
 input$matrixNoise
 ```
 
-By ranking $X_{i,j} = \theta_i + Z_{i,j}$ column-wise we obtain the final rank matrix. The rank matrix is built by ranking the columns of the theta values plus the matrix noise.
+By ranking $X_{i,j} = \theta_i + Z_{i,j}$ column-wise we obtain the final rank matrix. The rank matrix is built by ranking the columns of the theta values plus their noises.
 
 ## The convex optimization problem
-In this section, we briefly explain how the convex optimization problem is formulated. First, we define the $\pi(i,j)$ function that returns the index of the item in position $i$ for the assessor $j$. 
+Next, we briefly explain how the convex optimization problem is formulated. First, we define the $\pi(i,j)$ function that returns the index of the item in position $i$ for the assessor $j$. 
 
 ### The full approach
-The full approach considers the full set of constraints comprising all order relations produced by the rankers.
+The full approach considers the complete set of constraints comprising all order relations produced by the rankers.
 
-Given the assessor $j$ and starting from the object ranked first, we force this object with the latent parameter $\theta_{\pi(1,j)}$ plus noise $z_{(\pi(1,j),j)}$ to be greater or equal to the object in the second position with $\theta_{\pi(2,j)}$ plus $z_{(\pi(2,j),j)}$ plus a scaling parameter $b$. Thus, the first constraint for the assessor $j$ is $\theta_{\pi(1,j)} + z_{(\pi(1,j),j)} - \theta_{\pi(2,j)} - z_{(\pi(2,j),j)} \geq b$ (in standard form). In the second constraint we force $\theta_{\pi(1,j)}$ plus $z_{(\pi(1,j),j)}$ to be greater or equal to the third object represented by $\theta_{\pi(3,j)}$ plus $z_{(\pi(3,j),j)}$ plus $b$. This calculation is done for all objects accordingly. By doing so, it is possible to infer the underlying latent signal for each assessor via convex optimization. The number of constraints is equal to $n \times [(p-1) * p]/2$ and the number of variables is equal to $n * p + p$. Because the number of constraints is growing in quadratic time, we also introduce a restricted method that achieves a substancially higher computational efficiency.
+Given a fixed ranker $j$ and starting with the item ranked first, we force this item with the latent parameter $\theta_{\pi(1,j)}$ plus error $z_{(\pi(1,j),j)}$ to have a greater equal relation to the item ranked second with $\theta_{\pi(2,j)}$ plus $z_{(\pi(2,j),j)}$. Thus, the first constraint for the ranker $j$ is $\theta_{\pi(1,j)} + z_{(\pi(1,j),j)} - \theta_{\pi(2,j)} - z_{(\pi(2,j),j)} \geq b$, where $b > 0$ is a scaling constant, that can be arbitrarily chosen. In the second constraint for the same ranker, we require $\theta_{\pi(1,j)}$ plus $z_{(\pi(1,j),j)}$ to obey a greater equal relation to the item ranked third, represented by $\theta_{\pi(3,j)}$ plus $z_{(\pi(3,j),j)}$. In formal notation, $\theta_{\pi(1,j)} + z_{(\pi(1,j),j)} - \theta_{\pi(3,j)} - z_{(\pi(3,j),j)} \geq b$. Analogue calculations are carried out for all other items, moving from one ranker to the next. This procedure allows the user to infer each underlying latent signal across the rankers via convex optimization. The number of constraints is equal to $n \times [(p-1) * p]/2$ and the number of variables is equal to $(n \times p)+p$. 
 
 ### The restricted approach
-The restricted approach considers the minimum set of constraints derived from the full set of constraints, when the transitivity property of rank scales is applied. It increases the computational efficiency.
+Because the number of constraints in the full approach is growing in quadratic time, we suggest to use the restricted method that achieves a substantially higher computational efficiency.
+The restricted approach considers the minimum required set of constraints derived from the full set, applying the transitivity property of rank scales. The number of variables $(n \times p)+p$ remains the same but the number of constraints is reduced from $n \times \frac{(p-1)p}{2}$ to $n \times (p-1)$.
 
 ### The minimization term
-Once we have built the model constraints, two different objective functions are available: The first one concernes the minimization of the sums of the (weighted) noise variables $z_{i,j}$. The second one involves the minimization of the sums of the (weighted) squared noise variables $z_{i,j}$. We have to solve a convex linear optimization problem in the first case, and a convex quadratic optimization problem in the second case. 
+Once the model constraints are built, two different objective functions can be applied: the first concerns the minimization of the sums of the (weighted) noise variables $z_{i,j}$ and the second involves the minimization of the sums of the (weighted) squared noise variables $z_{i,j}$. A convex linear optimization problem has to be solved in the first case, and a convex quadratic optimization problem in the second case. 
 
 ## Estimating the latent signals from multiple ranked lists
-The main function that estimates the underlying signal is _estimateTheta()_. Parameters required are: (i) A rank matrix as described in the previous section; (ii) the number of Bootstrap samples (we recommend 200); and (iii) a value for the scaling parameter $b>0$, usually set to 0.1. Our implementation is compatible with two different solvers, _gurobi_ and _nloptr_. Furthermore, four different mathematical approaches are implemented, _restricedQuadratic_, _restrictedLinear_, _fullQuadratic_ and _fullLinear_, which can be choosen by the _type_ parameter. Also, two different statistical Bootstrap techniques are available, the _classic.bootstrap_ and the _poisson.bootstrap_. The number of cores used for the Bootstrap procedures can be set by the _nCore_ parameter. 
+The main function that estimates the underlying signal is _estimateTheta()_. Parameters required are: (i) An input rank matrix as described in the previous section, (ii) the number of Bootstrap samples (we recommend at least 200), and (iii) a value for the scaling parameter $b>0$, usually set to 0.1. The current implementation is compatible with two different solvers, _gurobi_ and _nloptr_. Furthermore, four different estimation procedures are implemented, _restricedQuadratic_, _restrictedLinear_, _fullQuadratic_ and _fullLinear_, which can be chosen by the _type_ parameter. Also, two different statistical Bootstrap techniques are available, the _classic.bootstrap_ and the _poisson.bootstrap_. The number of cores used for the Bootstrap procedures can be set by the _nCore_ parameter. 
 
 
 ```{r}
@@ -107,27 +111,27 @@ The main function that estimates the underlying signal is _estimateTheta()_. Par
 data(estimatedSignal)
 ```
 
-The Bootstrap estimated signals and their standard errors can be obtained from:
+The Bootstrap estimated signals and their standard errors can be obtained from
 ```{r}
 estimatedSignal$estimation
 ```
 
-The estimated consensus rank is:
+The estimated signal-based consensus rank is
 
 ```{r}
 rank(-estimatedSignal$estimation$signal.estimate)
 ```
 
-For each object (_id_) the estimated signal (theta value) and its standard error are shown. 
-The higher the estimated theta value, the lower is the associated rank position, i.e. towards the top range of the consensus rank list.
+For each object (_id_) the estimated signal (theta) value and its standard error is displayed. 
+The higher the estimated theta value, the lower is the associated rank position, i.e. towards the top of the consensus rank list.
 
-The Bootstrap also allows us to estimate the noise in the matrix of constraints which was minimized by means of convex optimization.
+The Bootstrap procedure also produces an estimate of the noises from the matrix of constraints which was minimized by means of convex optimization.
 
 ```{r}
 estimatedSignal$estimatedMatrixNoise
 ```
 
-The results of each Bootstrap iteration are also available. Each column represents an object and each row the Bootstrap sample estimates.
+The results of each Bootstrap iteration are also available. Each column represents an item and each row the Bootstrap sample estimates.
 
 ```{r}
 estimatedSignal$allBootstraps
@@ -139,7 +143,7 @@ estimatedSignal$time
 ```
 
 ## Plots
-A violin plot is available to display the distribution of the theta estimates for each object obtained from different runs.
+Finally, a violin plot is available to display the distribution of the theta estimates for each object obtained from different runs.
 
 ```{r, fig.height=4,fig.width=6}
 vp <- violinPlot(estimation = estimatedSignal,trueSignal = input$theta.true,title = "Violin plot")
