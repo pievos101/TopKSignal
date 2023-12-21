@@ -19,4 +19,8 @@ A violint plot with the estimated distribution of each object
 \description{
 violinPlot
 }
+\examples{
+data(estimatedSignal)
+violinPlot(estimatedSignal)
+}
 \keyword{violintPlot}

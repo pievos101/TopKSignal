@@ -11,6 +11,9 @@
 #'   \item matrixNoiseOrdered - The matrix noise ordered by the columns. The objects are ordered by the estimated value.
 #'   \item estimateThetaOrdered - The theta vector ordered by their importance (from the highest value to the lowest).
 #' }
+#' @examples
+#' data(estimatedSignal)
+#' heatmapPlot(estimatedSignal)
 #' @export
 heatmapPlot <- function(estimation, type = "full", 
     title = "") {

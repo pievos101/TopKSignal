@@ -43,4 +43,19 @@ A list with the estimation information obtained:
 \description{
 The main function for the estimation of the signals informing the ranks is called estimateTheta(). The required parameters are: (1) a rank matrix, (2) the number of bootstrap samples (500 is recommended), (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of optimization technique: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic (the latter two recommended), (5) the type of  bootstrap sampling scheme: classic.bootstrap and poisson.bootstrap (recommended), and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
 }
+\examples{
+library(TopKSignal)
+set.seed(1421)
+p = 8
+n = 10
+input <- generate.rank.matrix(p, n)
+rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
+# For the following code Gurobi needs to be installed
+\dontrun{
+estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, 
+solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)   
+}
+data(estimatedSignal)
+estimatedSignal
+}
 \keyword{estimateTheta}

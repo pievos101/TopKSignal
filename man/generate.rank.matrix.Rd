@@ -25,4 +25,10 @@ A list with simulated data
 \description{
 The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors, called n. The function simulates full ranked lists (i.e. no missing assignments) without ties.
 }
+\examples{
+p = 8
+n = 10
+input <- generate.rank.matrix(p, n)
+rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
+}
 \keyword{generate.rank.matrix}

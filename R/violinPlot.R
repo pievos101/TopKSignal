@@ -6,6 +6,9 @@
 #' @param title The title of the plot  
 #' @keywords violintPlot
 #' @return A violint plot with the estimated distribution of each object 
+#' @examples
+#' data(estimatedSignal)
+#' violinPlot(estimatedSignal)
 #' @export
 violinPlot <- function(estimation, trueSignal = NULL, 
     title = NULL) {

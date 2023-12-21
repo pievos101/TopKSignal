@@ -7,6 +7,7 @@
 #'   \item{estimatedMatrixNoise}{The estimated matrix noise} 
 #'   \item{allBootstraps}{The signal estimates from all bootstrap iterations}
 #' }
-#' @source na
 #' @name estimatedSignal
+#' @examples
+#' data(estimatedSignal)
 NULL

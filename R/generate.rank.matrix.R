@@ -13,6 +13,11 @@
 #'   \item matrixNoise - The noise added to the true signals in order to get the final rank matrix
 #' }
 #' @keywords generate.rank.matrix
+#' @examples
+#' p = 8
+#' n = 10
+#' input <- generate.rank.matrix(p, n)
+#' rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
 #' @export
 generate.rank.matrix <- function(p, n, percentageMissing = 0) {
     # p - number of objects n- number of

@@ -6,6 +6,9 @@
 #' @param title A title for the plot  
 #' @keywords elbowtPlot
 #' @return A elbow plot 
+#' @examples
+#' data(estimatedSignal)
+#' elbowPlot(estimatedSignal)
 #' @export
 elbowPlot <- function(estimation, title = "") {
     estimation <- estimation$estimation

@@ -38,3 +38,18 @@ The heatmap plot allows us to control for specific error patterns associated wit
 The elbow plot permits the identification of subsets of objects, e.g. top-$k$ or bottom-$q$ objects. On the x-axis all objects are ordered according to their rank positions. On the y-axis the corresponding estimated signal values are displayed. The idea of the elbow plot is to scan for 'jumps' in the sequence of ordered objects ? i.e. find signal estimates next to each other that are visually much distant - in an exploratory manner. The elbowPlot function requires the estimation results from the estimateTheta function.
 }
 
+\examples{
+library(TopKSignal)
+set.seed(1421)
+p = 8
+n = 10
+input <- generate.rank.matrix(p, n)
+rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
+# For the following code Gurobi needs to be installed
+\dontrun{
+estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, 
+solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)	
+}
+data(estimatedSignal)
+estimatedSignal
+}

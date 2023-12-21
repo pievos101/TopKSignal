@@ -11,9 +11,9 @@ A list of various values returned by the estimateTheta() function.
   \item{allBootstraps}{The signal estimates from all bootstrap iterations}
 }
 }
-\source{
-na
-}
 \description{
 Object returned by the estimateTheta() function.
+}
+\examples{
+data(estimatedSignal)
 }

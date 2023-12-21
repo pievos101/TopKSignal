@@ -25,4 +25,18 @@
 #' 
 #' @docType package
 #' @name TopKSignal
+#' @examples
+#' library(TopKSignal)
+#' set.seed(1421)
+#' p = 8
+#' n = 10
+#' input <- generate.rank.matrix(p, n)
+#' rownames(input$R.input) <- c("a","b","c","d","e","f","g","h")
+#' # For the following code Gurobi needs to be installed
+#' \dontrun{
+#' estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, 
+#' solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)	
+#' }
+#' data(estimatedSignal)
+#' estimatedSignal
 NULL
