@@ -3,8 +3,7 @@ Type: Package
 Title: A Convex Optimization Tool for Signal Reconstruction from Multiple Ranked Lists
 Version: 1.0
 Date: 2023-12-12
-Author: Luca Vitale, Bastian Pfeifer, Michael G. Schimek 
-Maintainer: Bastian Pfeifer <bastian.pfeifer@medunigraz.at>
+Authors@R: c(person("Luca Vitale", "Developer", role=c("aut")), person("Bastian Pfeifer", "Maintainer", role = c("aut","cre"), email="bastian.pfeifer@medunigraz.at"), person("Michael G. Schimek", "Supervision", role=c("aut")))
 Depends: R (>= 3.5.0)
 Imports: foreach, doParallel, parallel, nloptr, Matrix, ggplot2, reshape2
 Suggests: knitr, rmarkdown, gurobi
@@ -15,4 +14,3 @@ RoxygenNote: 7.2.3
 Encoding: UTF-8
 VignetteBuilder: knitr
 NeedsCompilation: no
-Packaged: 2020-03-25 15:17:25 UTC; luca
