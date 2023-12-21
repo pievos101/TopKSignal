@@ -533,7 +533,7 @@ techniques are available, the <em>classic.bootstrap</em> and the
 <em>poisson.bootstrap</em>. The number of cores used for the Bootstrap
 procedures can be set by the <em>nCore</em> parameter.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co">#estimatedSignal &lt;- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = &quot;gurobi&quot;, type = &quot;restrictedQuadratic&quot;, bootstrap.type = &quot;poisson.bootstrap&quot;,nCore = 1)</span></span>
-<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># For the above call Gurobi needs to be installed.</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># For the above call Gurobi must be installed.</span></span>
 <span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="fu">data</span>(estimatedSignal)</span></code></pre></div>
 <p>The Bootstrap estimated signals and their standard errors can be
 obtained from</p>

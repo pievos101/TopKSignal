@@ -2,7 +2,7 @@
 title: "TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{TopKSignal: A convex optimization tool for signal reconstruction from multiple ranked lists}
+  %\VignetteIndexEntry{TopKSignal}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,14 +18,14 @@ knitr::opts_chunk$set(
 
 For the CRAN version please use:
 
-```{r setup2}
+```{r setup_cran}
 #install.packages("TopKSignal")
 library(TopKSignal)
 ```
 
 A development version of our R-package TopKSignal is also available from GitHub. It can be installed using devtools.
 
-```{r setup}
+```{r setup_dev}
 # install.packages("devtools")
 # library(devtools)
 # install_github("pievos101/TopKSignal")
@@ -116,7 +116,7 @@ The main function that estimates the underlying signal is _estimateTheta()_. Par
 
 ```{r}
 #estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)
-# For the above call Gurobi needs to be installed.
+# For the above call Gurobi must be installed.
 data(estimatedSignal)
 ```
 

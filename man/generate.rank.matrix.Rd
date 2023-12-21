@@ -23,6 +23,6 @@ A list with simulated data
 }
 }
 \description{
-The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors (rankers), called n. The function simulates full ranked lists (i.e. no missing assignments) without ties.
+The generate.rank.matrix() function requires the user to specify the number of objects (items), called p, and the number of assessors, called n. The function simulates full ranked lists (i.e. no missing assignments) without ties.
 }
 \keyword{generate.rank.matrix}

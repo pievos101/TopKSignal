@@ -1,6 +1,6 @@
 #' Estimation of the underlying signal.
 #'
-#' This is the main function for the estimation of the underlying latent signals from multiple ranked lists. The parameters required are: (1) A rank matrix (objects as rows, assessors as columns), (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
+#' The main function for the estimation of the signals informing the ranks is called estimateTheta(). The required parameters are: (1) a rank matrix, (2) the number of bootstrap samples (500 is recommended), (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of optimization technique: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic (the latter two recommended), (5) the type of  bootstrap sampling scheme: classic.bootstrap and poisson.bootstrap (recommended), and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
 #' 
 #' @param R.input A matrix where the rows represent the objects and
 #' the columns the assessors (rankers).

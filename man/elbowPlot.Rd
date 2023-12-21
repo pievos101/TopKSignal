@@ -15,6 +15,6 @@ elbowPlot(estimation, title = "")
 A elbow plot
 }
 \description{
-The Elbow plot permits to identify a subset of top-$k$ objects. Objects are ordered according to their rank position shown on the x-axis. On the y-axis we have the corresponding estimated signal value of each object. The idea of the elbow plot is to scan for 'jumps' - neighbouring signal estimates which are visually much distant - in an exploratory manner. The elbowPlot function requires the estimation results from the estimateTheta function.
+The elbow plot permits the identification of subsets of objects, e.g. top-$k$ or bottom-$q$ objects. On the x-axis all objects are ordered according to their rank positions. On the y-axis the corresponding estimated signal values are displayed. The idea of the elbow plot is to scan for 'jumps' in the sequence of ordered objects ? i.e. find signal estimates next to each other that are visually much distant - in an exploratory manner. The elbowPlot function requires the estimation results from the estimateTheta function.
 }
 \keyword{elbowtPlot}
