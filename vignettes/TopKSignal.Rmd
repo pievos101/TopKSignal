@@ -15,14 +15,23 @@ knitr::opts_chunk$set(
 ```
 
 # Package installation
-%%%%%%%%%%%%%%%%%%%%%%%%%%   NEEDS TO BE ADAPTED FOR THE CRAN VERSION %%%%%%%%%%%%%%%%%%%%%%
-The R-package TopKSignal is freely available from GitHub. It can be installed using devtools.
-```{r setup}
-#install.packages("devtools")
-#library(devtools)
-#install_github("pievos101/TopKSignal")
+
+For the CRAN version please use:
+
+```{r setup2}
+#install.packages("TopKSignal")
 library(TopKSignal)
 ```
+
+A development version of our R-package TopKSignal is also available from GitHub. It can be installed using devtools.
+
+```{r setup}
+# install.packages("devtools")
+# library(devtools)
+# install_github("pievos101/TopKSignal")
+library(TopKSignal)
+```
+
 
 # Introduction
 The ranking of items is widely used to rate their relative quality or relevance across multiple assessments (by humans or machines). Beyond classical rank aggregation, it is of special interest to estimate the, usually unobservable, latent signals that inform a consensus ranking. Under the only assumption of independent assessments, which can be incomplete, the package offers indirect inference via convex optimization in combination with classical Bootstrap and computationally more efficient Poisson Bootstrap. Users can decide between a linear or a quadratic objective function. The input for the optimization problem is based complete pairwise comparisons of all items with respect to their rank positions (the so-called 'full approach'). The transitivity property of rank scales can be adopted for a substantial reduction of the computational burden (the so-called 'restricted approach'). The order relations are represented by sets of constraints. The method is adept to both $n \gg p$ and $n \ll p$ data problems. The implemented package provides results with less computational demand comparable to the machine learning rank centrality algorithm. The primary output is the signal estimates, the estimated signal standard errors, and the consolidated rank list. The latter is an alternative to a conventional list of aggregated ranks.
@@ -51,7 +60,6 @@ input$R.input
 ```
 
 Each row represents the rank of an item assigned by a specific assessor (the columns). It should be noted, that _TopKSignal_ does not support tied ranks. Missing rank assignments are allowed.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%  MAKE SURE THAT THE WRIGHT FUNCTION IS USED %%%%%%%%%%%%%%%%%%%%%
 
 The input rank matrix is obtained from the model 
 
@@ -108,6 +116,7 @@ The main function that estimates the underlying signal is _estimateTheta()_. Par
 
 ```{r}
 #estimatedSignal <- estimateTheta(R.input = input$R.input, num.boot = 50, b = 0.1, solver = "gurobi", type = "restrictedQuadratic", bootstrap.type = "poisson.bootstrap",nCore = 1)
+# For the above call Gurobi needs to be installed.
 data(estimatedSignal)
 ```
 

@@ -11,7 +11,7 @@ Suggests: knitr, rmarkdown, gurobi
 Description: Estimation of the Latent Signals for Consensus Across Multiple Ranked Lists using Linear and Quadratic Convex Optimisation. To solve mid/large-scale problems, users should install the 'gurobi' optimiser (available from <https://www.gurobi.com/>).
 License: GPL-2
 LazyLoad: yes
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.3
 Encoding: UTF-8
 VignetteBuilder: knitr
 NeedsCompilation: no

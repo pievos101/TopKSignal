@@ -41,6 +41,6 @@ A list with the estimation information obtained:
 }
 }
 \description{
-This is the main function for the estimation of the underlying latent signals. The parameters required are: (1) A rank matrix (objects as rows, assessors as columns), (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
+This is the main function for the estimation of the underlying latent signals from multiple ranked lists. The parameters required are: (1) A rank matrix (objects as rows, assessors as columns), (2) the number of bootstrap samples (500 are recommended), and (3) a constant for the support variables \(b>0\), default is 0.1, (4)  the type of model with four different options: fullLinear, fullQuadratic, restrictedLinear, and restrictedQuadratic, (5) the type of bootstrap sampling scheme, poisson.bootstrap and classic.bootstrap, and (6) the number of cores for parallel computation. Each bootstrap sample is executed on a dedicated CPU core.
 }
 \keyword{estimateTheta}
