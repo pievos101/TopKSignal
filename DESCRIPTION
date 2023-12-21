@@ -2,7 +2,7 @@ Package: TopKSignal
 Type: Package
 Title: A Convex Optimization Tool for Signal Reconstruction from Multiple Ranked Lists
 Version: 1.0
-Date: 2023-11-10
+Date: 2023-12-12
 Author: Luca Vitale, Bastian Pfeifer, Michael G. Schimek 
 Maintainer: Bastian Pfeifer <bastian.pfeifer@medunigraz.at>
 Depends: R (>= 3.5.0)
